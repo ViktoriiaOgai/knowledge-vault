@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ # Knowledge Vault — Мини-платформа для заметок
 
-## Getting Started
+Учебный проект по разработке веб-приложения для хранения заметок и полезных ссылок. Построен на стеке **Next.js 15**, **TypeScript** и **Tailwind CSS**.
 
-First, run the development server:
+# Основные возможности
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Главная страница (`/`)**: Просмотр списка заметок с фильтрацией по категориям и поиском по названию/описанию.
+- **Создание заметки (`/notes/new`)**: Интерактивная форма с валидацией и условным рендерингом поля URL для ссылок.
+- **Детальная страница (`/notes/[id]`)**: Просмотр полной информации о заметке с использованием динамических роутов.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##  Технический стек и архитектура
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Архитектурные решения
+Проект разделен на **Server** и **Client Components** для оптимальной производительности:
+- **Server Components**: Главная страница (`page.tsx`) и Детальная страница (`[id]/page.tsx`). Это обеспечивает быструю загрузку данных на стороне сервера и SEO-оптимизацию.
+- **Client Components**: `NotesList` (интерактивные фильтры и поиск) и `NewNotePage` (состояние формы и валидация).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Работа с данными (Hybrid Data Access)
+В проекте реализован гибридный подход к хранению данных:
+1. **Mock-данные**: Статические заметки хранятся в `src/data/notes.ts` и доступны для серверного рендеринга на детальной странице.
+2. **LocalStorage**: Новые заметки, созданные пользователем, сохраняются в браузере. Компонент `NotesList` синхронизирует и объединяет оба источника данных при загрузке.
 
-## Learn More
+### UI-Kit (Pure Tailwind CSS)
+Все компоненты стилизованы вручную без использования сторонних библиотек (AntD, MUI и т.д.):
+- **Button**: Переиспользуемый компонент с поддержкой различных типов и hover-эффектов.
+- **Input**: Контролируемый компонент ввода с поддержкой валидации и focus-состояний.
+- **Category Badge**: Компонент для визуальной идентификации категорий заметок.
 
-To learn more about Next.js, take a look at the following resources:
+##  Модель данных (TypeScript)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Используется строгая типизация интерфейса `Note` и типов `Category` (`frontend`, `backend`, `career`, `other`) и `NoteType` (`note`, `link`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Запуск проекта
 
-## Deploy on Vercel
+1. Установите зависимости: `npm install`
+2. Запустите сервер разработки: `npm run dev`
+3. Соберите проект: `npm run build`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Ответы на вопросы самопроверки
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Почему часть компонентов реализована как client-side?** 
+   Потому что они требуют интерактивности (обработка кликов, ввод текста) и использования React-хуков (`useState`, `useEffect`), которые не поддерживаются в Server Components.
+2. **Где и почему Вы храните типы?** 
+   Типы хранятся в `src/types/note.ts`. Это позволяет централизованно управлять схемой данных и избегать дублирования.
+3. **В чём отличие App Router от Pages Router?** 
+   App Router использует серверные компоненты по умолчанию, имеет более мощную систему вложенных макетов (layouts) и упрощенную работу с асинхронными данными через `async/await`.
+4. **Что произойдёт, если сделать поле url обязательным для всех типов заметок?** 
+   Это приведет к некорректной модели данных: обычные текстовые заметки будут содержать бесполезные или пустые ссылки, что затруднит поддержку кода и ухудшит UX.
