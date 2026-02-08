@@ -1,4 +1,3 @@
-https://knowledge-vault-peach.vercel.app/
 https://knowledge-vault-7l3g1d6xv-viktoriias-projects-fc4ddb3c.vercel.app
  
  # Knowledge Vault — Мини-платформа для заметок  
