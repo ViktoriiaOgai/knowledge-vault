@@ -74,7 +74,9 @@ export default function NotesList({ notes: initialNotes }: Props) {
 
       {/* Список заметок */}
       {filteredNotes.length === 0 ? (
-        <p className="text-lg text-gray-500 text-center">
+        <p className="text-lg text-gray-500 text-center *:block max-w-md w-full rounded-lg border border-blue-900 p-4 
+      shadow-md shadow-blue-300 transition-all    
+        hover:shadow-lg hover:shadow-blue-500 ">
           No notes found
         </p>
       ) : (

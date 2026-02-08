@@ -26,8 +26,10 @@ export default async function NotePage({ params }: Props) {
 
   return (
     
-    <main className="p-6 max-w-2xl">
-      
+    <main className="p-6 min-h-screen flex flex-col items-center justify-center">
+      <div className="block max-w-md w-full rounded-lg border border-blue-900 p-4 
+      shadow-md shadow-blue-300 transition-all    
+        hover:shadow-lg hover:shadow-blue-500 ">
       <h1 className="mb-2 text-2xl font-semibold">
         {note.title}
       </h1>
@@ -53,6 +55,7 @@ export default async function NotePage({ params }: Props) {
         <p className="mt-6 text-xs text-gray-400">
         Created at: {note.createdAt}
       </p>
+      </div>
      <Link
         href="/"
               >
