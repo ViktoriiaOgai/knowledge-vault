@@ -1,4 +1,6 @@
- # Knowledge Vault — Мини-платформа для заметок
+https://knowledge-vault-peach.vercel.app/
+ 
+ # Knowledge Vault — Мини-платформа для заметок  
 
 Учебный проект по разработке веб-приложения для хранения заметок и полезных ссылок. Построен на стеке **Next.js 15**, **TypeScript** и **Tailwind CSS**.
 
